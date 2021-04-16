@@ -9,6 +9,7 @@ namespace BlackJackConsoleApp
         public static void ShowStats(BlackJack bj)
         {
             // state info
+            Console.WriteLine("Player");
             foreach (Card c in bj.Dealer.Hand)
             {
                 Console.WriteLine(string.Format("{0}{1}", c.ID, c.Suit));
@@ -17,6 +18,8 @@ namespace BlackJackConsoleApp
             Console.WriteLine(bj.Dealer.Hand.Value);
 
             Console.WriteLine(Environment.NewLine);
+
+            Console.WriteLine("Player");
 
             foreach (Card c in bj.Player.Hand)
             {
@@ -34,7 +37,7 @@ namespace BlackJackConsoleApp
             string input = "";
 
             BlackJack bj = new BlackJack(17);
-
+            ShowStats(bj);
             while (bj.Result == GameResult.Pending)
             {
                 input = Console.ReadLine();
@@ -42,18 +45,20 @@ namespace BlackJackConsoleApp
                 if (input.ToLower() == "h")
                 {
                     bj.Hit();
+                    ShowStats(bj);
                 }
                 else 
                 {
                     bj.Stand();
+                    ShowStats(bj);
                 }
             }
 
             Console.WriteLine(bj.Result);
             Console.ReadLine();
         }
-    } // maybe remove this brace 
-} // maybe remove this brace
+    }
+}
 
         //GAME STATES
         public enum GameResult { Win = 1, Lose = -1, Draw = 0, Pending = 2};
@@ -146,7 +151,7 @@ namespace BlackJackConsoleApp
                 }
             }
             //returns a shuffled deck
-            public static Deck ShuffleDeck
+            public static Deck ShuffledDeck
             {
                 get 
                 {
@@ -277,5 +282,5 @@ namespace BlackJackConsoleApp
                 }
             }
         }
-    }
-}
+    
+
