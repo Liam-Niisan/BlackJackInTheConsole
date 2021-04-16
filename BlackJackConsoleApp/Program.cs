@@ -58,15 +58,14 @@ namespace BlackJackConsoleApp
             {
                 get
                 {
-                    //TODO: return value from Buisness rule
-                    return 0;
+                    return BlackJackRules.HandValue(this);
                 }
             }
         }
 
         public class Member
         {
-            Deck Hand;
+            public Deck Hand;
 
             public Member()
             {
@@ -143,9 +142,70 @@ namespace BlackJackConsoleApp
                 return deck.Value < 21;
             }
 
+            //return game state win, lose or draw given players' hands
+
             public static GameResult GetResult(Member player, Member dealer)
-            { 
-                
+            {
+                GameResult res = GameResult.Win; // why not?
+
+                double playerValue = HandValue(player.Hand);
+                double dealerValue = HandValue(dealer.Hand);
+
+                // player could be winner if...
+                if (playerValue <= 21)
+                {
+                    // and...
+                    if (playerValue != dealerValue)
+                    {
+                        double closestValue = new double[] { playerValue, dealerValue }
+                            .Select(handVal => new { handVal, weight = Math.Abs(handVal - 21) + (handVal > 21 ? 100 : 0) })
+                            .OrderBy(n => n.weight).First().handVal;
+
+                        res = playerValue == closestValue ? GameResult.Win : GameResult.Lose;
+                    }
+                    else
+                    {
+                        res = GameResult.Draw;
+                    }
+                }
+                else
+                {
+                    res = GameResult.Lose;
+                }
+
+                return res;
+            }
+         }
+
+        public class BlackJack
+        {
+            public Member Dealer = new Member();
+            public Member Player = new Member();
+            public GameResult Result { get; set; }
+            public Deck MainDeck;
+
+            public int StandLimit { get; set; }
+            public BlackJack(int dealerStandLimit)
+            {
+                // setup a blackjack game...
+
+                Result = GameResult.Pending;
+
+                StandLimit = dealerStandLimit;
+
+                // throw a new shuffled deck on table
+                MainDeck = BlackJackRules.ShuffledDeck;
+
+                // clear Player & Dealer hands and sleeves ;-)
+                Dealer.Hand.Clear();
+                Player.Hand.Clear();
+
+                //Deal the first two cards to Player & Dealer
+                for (int i = 0; ++i < 3;)
+                {
+                    Dealer.Hand.Push(MainDeck.Pop());
+                    Player.Hand.Push(MainDeck.Pop());
+                }
             }
         }
     }
