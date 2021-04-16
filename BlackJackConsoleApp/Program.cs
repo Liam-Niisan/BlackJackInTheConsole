@@ -6,10 +6,54 @@ namespace BlackJackConsoleApp
 {
     class Program
     {
+        public static void ShowStats(BlackJack bj)
+        {
+            // state info
+            foreach (Card c in bj.Dealer.Hand)
+            {
+                Console.WriteLine(string.Format("{0}{1}", c.ID, c.Suit));
+            }
+
+            Console.WriteLine(bj.Dealer.Hand.Value);
+
+            Console.WriteLine(Environment.NewLine);
+
+            foreach (Card c in bj.Player.Hand)
+            {
+                Console.WriteLine(string.Format("{0}{1}", c.ID, c.Suit));
+            }
+
+            Console.WriteLine(bj.Player.Hand.Value);
+
+            Console.WriteLine(Environment.NewLine);
+        }
+
+
         static void Main(string[] args)
         {
-            
+            string input = "";
+
+            BlackJack bj = new BlackJack(17);
+
+            while (bj.Result == GameResult.Pending)
+            {
+                input = Console.ReadLine();
+
+                if (input.ToLower() == "h")
+                {
+                    bj.Hit();
+                }
+                else 
+                {
+                    bj.Stand();
+                }
+            }
+
+            Console.WriteLine(bj.Result);
+            Console.ReadLine();
         }
+    } // maybe remove this brace 
+} // maybe remove this brace
 
         //GAME STATES
         public enum GameResult { Win = 1, Lose = -1, Draw = 0, Pending = 2};
@@ -205,6 +249,31 @@ namespace BlackJackConsoleApp
                 {
                     Dealer.Hand.Push(MainDeck.Pop());
                     Player.Hand.Push(MainDeck.Pop());
+                }
+            }
+
+            // Allow Play to hit. Dealer automatically hits when user stands.
+            public void Hit()
+            {
+                if (BlackJackRules.CanPlayerHit(Player.Hand) && Result == GameResult.Pending)
+                {
+                    Player.Hand.Push(MainDeck.Pop());
+                }
+            }
+
+            // When user stands, allow the Dealer to continue hitting until standlimit or bust.
+            // Then go ahead and set the game result.
+            public void Stand()
+            {
+                if (Result == GameResult.Pending)
+                {
+
+                    while (BlackJackRules.CanDealerHit(Dealer.Hand, StandLimit))
+                    {
+                        Dealer.Hand.Push(MainDeck.Pop());
+                    }
+
+                    Result = BlackJackRules.GetResult(Player, Dealer);
                 }
             }
         }
