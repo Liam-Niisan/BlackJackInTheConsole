@@ -34,28 +34,32 @@ namespace BlackJackConsoleApp
                 Console.WriteLine(Environment.NewLine);
             }
 
-            string input = "";
+            string input = "y";
 
-            BlackJack bj = new BlackJack(17);
-            ShowStats(bj);
-            while (bj.Result == GameResult.Pending)
+            while (input == "y")
             {
+                BlackJack bj = new BlackJack(17);
+                ShowStats(bj);
+                while (bj.Result == GameResult.Pending)
+                {
+                    input = Console.ReadLine();
+
+                    if (input.ToLower() == "h")
+                    {
+                        bj.Hit();
+                        ShowStats(bj);
+                    }
+                    else
+                    {
+                        bj.Stand();
+                        ShowStats(bj);
+                    }
+                }
+
+                Console.WriteLine(bj.Result);
+                Console.WriteLine("Do you want to play again? y / n ?");
                 input = Console.ReadLine();
-
-                if (input.ToLower() == "h")
-                {
-                    bj.Hit();
-                    ShowStats(bj);
-                }
-                else
-                {
-                    bj.Stand();
-                    ShowStats(bj);
-                }
             }
-
-            Console.WriteLine(bj.Result);
-            Console.ReadLine();
         }
     }
 }
