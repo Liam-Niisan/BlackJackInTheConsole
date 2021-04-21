@@ -59,10 +59,6 @@ namespace BlackJackConsoleApp
         }
     }
 }
-
-        //GAME STATES
-        public enum GameResult { Win = 1, Lose = -1, Draw = 0, Pending = 2};
-
         public static class BlackJackRules
         {
             //card values
@@ -223,6 +219,9 @@ namespace BlackJackConsoleApp
                 }
             }
         }
+
+        //GAME STATES
+        public enum GameResult { Win = 1, Lose = -1, Draw = 0, Pending = 2};
 
         public class Card
         { 
