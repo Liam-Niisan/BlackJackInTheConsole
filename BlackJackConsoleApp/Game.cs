@@ -4,36 +4,36 @@ using System.Linq;
 
 namespace BlackJackConsoleApp
 {
-    class Program
+    class Game
     {
-        public static void ShowStats(BlackJack bj)
-        {
-            // state info
-            Console.WriteLine("Dealer");
-            foreach (Card c in bj.Dealer.Hand)
-            {
-                Console.WriteLine(string.Format("{0}{1}", c.ID, c.Suit));
-            }
-
-            Console.WriteLine(bj.Dealer.Hand.Value);
-
-            Console.WriteLine(Environment.NewLine);
-
-            Console.WriteLine("Player");
-
-            foreach (Card c in bj.Player.Hand)
-            {
-                Console.WriteLine(string.Format("{0}{1}", c.ID, c.Suit));
-            }
-
-            Console.WriteLine(bj.Player.Hand.Value);
-
-            Console.WriteLine(Environment.NewLine);
-        }
-
-
         static void Main(string[] args)
         {
+
+            static void ShowStats(BlackJack bj)
+            {
+                // state info
+                Console.WriteLine("Dealer");
+                foreach (Card c in bj.Dealer.Hand)
+                {
+                    Console.WriteLine(string.Format("{0}{1}", c.ID, c.Suit));
+                }
+
+                Console.WriteLine(bj.Dealer.Hand.Value);
+
+                Console.WriteLine(Environment.NewLine);
+
+                Console.WriteLine("Player");
+
+                foreach (Card c in bj.Player.Hand)
+                {
+                    Console.WriteLine(string.Format("{0}{1}", c.ID, c.Suit));
+                }
+
+                Console.WriteLine(bj.Player.Hand.Value);
+
+                Console.WriteLine(Environment.NewLine);
+            }
+
             string input = "";
 
             BlackJack bj = new BlackJack(17);
@@ -47,7 +47,7 @@ namespace BlackJackConsoleApp
                     bj.Hit();
                     ShowStats(bj);
                 }
-                else 
+                else
                 {
                     bj.Stand();
                     ShowStats(bj);
@@ -125,10 +125,10 @@ namespace BlackJackConsoleApp
         public static class BlackJackRules
         {
             //card values
-            public static string[] ids = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+            public static List<string> ids = new List<string>() { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
 
             //card suits
-            public static string[] suits = { "C", "D", "H", "S" };
+            public static List<string> suits = new List<string> { "C", "D", "H", "S" };
 
             //returns a new deck
             public static Deck NewDeck
@@ -221,8 +221,8 @@ namespace BlackJackConsoleApp
                 {
                     res = GameResult.Lose;
                 }
-
-                return res;
+                
+                    return res;
             }
          }
 
