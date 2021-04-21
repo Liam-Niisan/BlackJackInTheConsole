@@ -59,69 +59,6 @@ namespace BlackJackConsoleApp
         }
     }
 }
-
-        //GAME STATES
-        public enum GameResult { Win = 1, Lose = -1, Draw = 0, Pending = 2};
-
-        public class Card
-        { 
-            public string ID { get; set; }
-            public string Suit { get; set; }
-            public int Value { get; set; }
-
-            public Card(string id, string suit, int value)
-            {
-                ID = id;
-                Suit = suit;
-                Value = value;
-            }
-        }
-
-        public class Deck : Stack<Card>
-        { 
-            public Deck(IEnumerable<Card> collection) : base(collection) { }
-            public Deck() : base(52) { }
-
-            //indexer
-            public Card this[int index]
-            {
-                get 
-                {
-                    Card item;
-
-                    if (index >= 0 && index <= this.Count - 1)
-                    {
-                        item = this.ToArray()[index];
-                    }
-                    else
-                    {
-                        item = null;
-                    }
-
-                    return item;
-                }
-            }
-
-            //let's get value of the Deck
-            public double Value
-            {
-                get
-                {
-                    return BlackJackRules.HandValue(this);
-                }
-            }
-        }
-
-        public class Member
-        {
-            public Deck Hand;
-
-            public Member()
-            {
-                Hand = new Deck();
-            }
-        }
-
         public static class BlackJackRules
         {
             //card values
@@ -282,5 +219,68 @@ namespace BlackJackConsoleApp
                 }
             }
         }
+
+        //GAME STATES
+        public enum GameResult { Win = 1, Lose = -1, Draw = 0, Pending = 2};
+
+        public class Card
+        { 
+            public string ID { get; set; }
+            public string Suit { get; set; }
+            public int Value { get; set; }
+
+            public Card(string id, string suit, int value)
+            {
+                ID = id;
+                Suit = suit;
+                Value = value;
+            }
+        }
+
+        public class Deck : Stack<Card>
+        { 
+            public Deck(IEnumerable<Card> collection) : base(collection) { }
+            public Deck() : base(52) { }
+
+            //indexer
+            public Card this[int index]
+            {
+                get 
+                {
+                    Card item;
+
+                    if (index >= 0 && index <= this.Count - 1)
+                    {
+                        item = this.ToArray()[index];
+                    }
+                    else
+                    {
+                        item = null;
+                    }
+
+                    return item;
+                }
+            }
+
+            //let's get value of the Deck
+            public double Value
+            {
+                get
+                {
+                    return BlackJackRules.HandValue(this);
+                }
+            }
+        }
+
+        public class Member
+        {
+            public Deck Hand;
+
+            public Member()
+            {
+                Hand = new Deck();
+            }
+        }
+
     
 
