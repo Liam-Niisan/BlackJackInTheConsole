@@ -32,6 +32,10 @@ namespace BlackJackConsoleApp
                 Console.WriteLine(bj.Player.Hand.Value);
 
                 Console.WriteLine(Environment.NewLine);
+
+                Console.WriteLine("Press \"h\" to hit, or any other key to stand.");
+
+                Console.WriteLine(Environment.NewLine);
             }
 
             string input = "y";
