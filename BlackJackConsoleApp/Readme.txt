@@ -1,5 +1,3 @@
-﻿README.MD
-
 BlackJackInTheConsole
 Sample Code Louisville Project
 
