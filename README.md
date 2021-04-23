@@ -4,7 +4,7 @@ README.MD
 Sample Code Louisville Project
 
 A simple command line Blackjack game that is played in the console. The program will start and display the starting hands of the dealer and the player. 
-The player can choose to "Hit" or to "Stand". To 'Hit' is to ask for another card. To 'Stand' is to hold your total and end your turn. Once the program starts it will display to the user to press "h" to hit and any other key to stand. The goal of blackjack is to beat the dealer's hand without going over 21. If you go over 21 you bust, and the dealer wins regardless of the dealer's hand. Dealer will hit until his/her cards total 17 or higher. Once the game is over it will ask the user if they want to play again by pressing "y" or "n".
+The player can choose to "Hit" or to "Stand". To 'Hit' is to ask for another card. To 'Stand' is to hold your total and end your turn. Once the program starts it will display to the user to press "h" to hit and any other key to stand. The goal of blackjack is to beat the dealer's hand without going over 21. If you go over 21 you bust, and the dealer wins regardless of the dealer's hand. If you bust, you will have to stand to continue on to the result. Dealer will hit until his/her cards total 17 or higher. Once the game is over it will ask the user if they want to play again by pressing "y" or "n".
 
 REQUIREMENTS:
 
